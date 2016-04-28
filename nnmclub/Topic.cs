@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace nnmclub
 {
-    class Topic
+    public class Topic
     {
     }
 }

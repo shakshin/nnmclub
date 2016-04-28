@@ -8,13 +8,17 @@ namespace nnmclub
 {
     class Program
     {
-        static Config config = Config.getConfig();
+        static Config config;
         static void Main(string[] args)
         {
+            config = Config.Get();
+            config.Save();
+
             if (args.Length == 0) {
                 ShowHelp();
                 return;
             }
+            
             switch (args[0].ToLower())
             {
                 case "help":
@@ -30,7 +34,7 @@ namespace nnmclub
                     Passkey(args);
                     break;
                 default:
-                    System.Console.WriteLine(String.Format("Wrong command: {0}", args[0]));
+                    System.Console.WriteLine("Wrong command: {0}", args[0]);
                     break;
             }
         }
