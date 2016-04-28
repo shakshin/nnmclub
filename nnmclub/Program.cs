@@ -8,6 +8,7 @@ namespace nnmclub
 {
     class Program
     {
+        static Config config = Config.getConfig();
         static void Main(string[] args)
         {
             if (args.Length == 0) {
@@ -19,13 +20,39 @@ namespace nnmclub
                 case "help":
                     ShowHelp();
                     break;
+                case "topic":
+                    Topic(args);
+                    break;
+                case "folder":
+                    Folder(args);
+                    break;
+                case "passkey":
+                    Passkey(args);
+                    break;
                 default:
                     System.Console.WriteLine(String.Format("Wrong command: {0}", args[0]));
                     break;
             }
         }
 
-        static void ShowHelp() { 
+        static void Topic(string[] args)
+        {
+
+        }
+
+        static void Passkey(string[] args)
+        {
+
+        }
+
+        static void Folder(string[] args)
+        {
+
+        }
+
+        static void ShowHelp() 
+        { 
+
         }
     }
 }
