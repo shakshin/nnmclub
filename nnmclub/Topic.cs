@@ -27,6 +27,15 @@ namespace nnmclub
             set { _title = value; }
         }
 
+        [NonSerialized]
+        private String _lastDownloaded;
+
+        public String LastDownloaded
+        {
+            get { return _lastDownloaded; }
+            set { _lastDownloaded = value; }
+        }
+
         public static void List()
         {
             Config config = Config.Get();
@@ -39,6 +48,8 @@ namespace nnmclub
                     topic.Id,
                     topic.Title ?? "No title resolved for topic"
                 );
+                System.Console.WriteLine("  Last downloaded: {0}", topic.LastDownloaded ?? "never");
+                
             }
             System.Console.WriteLine();
         }

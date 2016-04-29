@@ -69,7 +69,17 @@ namespace nnmclub
                         {
                             String dlLink = item.SelectSingleNode("link").InnerText;
                             System.Console.WriteLine("Downloading torrent: {0}", item.SelectSingleNode("title").InnerText);
-                            Download(dlLink, id);
+                            if (Download(dlLink, id))
+                            {
+                                foreach (Topic t in config.Topics)
+                                {
+                                    if (t.Id == id)
+                                    {
+                                        t.LastDownloaded = DateTime.Now.ToString();
+                                        config.Save();
+                                    }
+                                }
+                            }
                         }
                     }
                     catch (Exception ex) { }
