@@ -27,15 +27,6 @@ namespace nnmclub
             set { _title = value; }
         }
 
-        [NonSerialized]
-        private String _GUID;
-
-        public String GUID
-        {
-            get { return _GUID; }
-            set { _GUID = value; }
-        }
-
         public static void List()
         {
             Config config = Config.Get();
@@ -90,7 +81,7 @@ namespace nnmclub
             else
             {
                 config.Topics.Remove(t);
-                System.Console.WriteLine("Topic with id {0} was reoved from list", id);
+                System.Console.WriteLine("Topic with id {0} was removed from list", id);
                 config.Save();
             }
         }

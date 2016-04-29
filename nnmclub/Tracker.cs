@@ -61,34 +61,15 @@ namespace nnmclub
                 {
                     try
                     {
-                        String guid = item.SelectSingleNode("guid").InnerText;
-                        Regex r = new Regex(@"nnm-club-(\d+)-\d+");
-                        MatchCollection matches = r.Matches(guid);
+                        String description = item.SelectSingleNode("description").InnerText;
+                        Regex r = new Regex(@"t=(\d+)");
+                        MatchCollection matches = r.Matches(description);
                         int id = int.Parse(matches[0].Groups[1].Value);
                         if (ids.Contains(id))
                         {
-                            Boolean dl = true;
-                            Topic topic = null;
-                            foreach (Topic t in config.Topics)
-                            {
-                                if (t.Id == id) 
-                                {
-                                    topic = t;
-                                    if (t.GUID == guid)
-                                        dl = false;
-                                }
-                            }
-                            if (dl)
-                            {
-                                String dlLink = item.SelectSingleNode("link").InnerText;
-                                System.Console.WriteLine("Downloading torrent: {0}", item.SelectSingleNode("title").InnerText);
-                                if (Download(dlLink, id))
-                                {
-                                    topic.GUID = guid;
-                                    config.Save();
-                                }
-                                
-                            }
+                            String dlLink = item.SelectSingleNode("link").InnerText;
+                            System.Console.WriteLine("Downloading torrent: {0}", item.SelectSingleNode("title").InnerText);
+                            Download(dlLink, id);
                         }
                     }
                     catch (Exception ex) { }
