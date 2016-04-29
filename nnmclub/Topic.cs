@@ -49,7 +49,7 @@ namespace nnmclub
                     topic.Title ?? "No title resolved for topic"
                 );
                 System.Console.WriteLine("  Last downloaded: {0}", topic.LastDownloaded ?? "never");
-                
+                System.Console.WriteLine();    
             }
             System.Console.WriteLine();
         }
