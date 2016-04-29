@@ -33,6 +33,23 @@ namespace nnmclub
                 case "passkey":
                     Passkey(args);
                     break;
+                case "run":
+                    if (args.Length != 1)
+                    {
+                        System.Console.WriteLine("");
+                    }
+                    if (config.Passkey == String.Empty)
+                    {
+                        System.Console.WriteLine("Passkey is not configured");
+                        return;
+                    }
+                    if (config.Folder == String.Empty)
+                    {
+                        System.Console.WriteLine("Download folder is not configured");
+                        return;
+                    }
+                    Tracker.Poll();
+                    break;
                 default:
                     System.Console.WriteLine("Wrong command: {0}", args[0]);
                     break;

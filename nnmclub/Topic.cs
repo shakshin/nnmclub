@@ -27,6 +27,15 @@ namespace nnmclub
             set { _title = value; }
         }
 
+        [NonSerialized]
+        private String _GUID;
+
+        public String GUID
+        {
+            get { return _GUID; }
+            set { _GUID = value; }
+        }
+
         public static void List()
         {
             Config config = Config.Get();
