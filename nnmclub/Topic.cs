@@ -29,7 +29,18 @@ namespace nnmclub
 
         public static void List()
         {
-
+            Config config = Config.Get();
+            System.Console.WriteLine("Topics:");
+            System.Console.WriteLine();
+            foreach (Topic topic in config.Topics)
+            {
+                System.Console.WriteLine(
+                    "{0}: {1}",
+                    topic.Id,
+                    topic.Title ?? "No title resolved for topic"
+                );
+            }
+            System.Console.WriteLine();
         }
 
         public static void Add(int id)
@@ -45,6 +56,7 @@ namespace nnmclub
             }
             Topic t = new Topic();
             t.Id = id;
+            t.Title = Tracker.ResolveTopicTitle(id);
             config.Topics.Add(t);
             System.Console.WriteLine("Topic with id {0} was added to list", id);
             config.Save();

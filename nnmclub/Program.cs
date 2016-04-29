@@ -53,12 +53,12 @@ namespace nnmclub
                         Topic.List();
                         break;
                     case "add":
-                        if (args.Length == 2)
+                        if (args.Length == 3)
                         {
                             int id = 0;
                             try
                             {
-                                id = int.Parse(args[1]);
+                                id = int.Parse(args[2]);
                             } 
                             catch (Exception ex)
                             {
@@ -73,12 +73,12 @@ namespace nnmclub
                         }
                         break;
                     case "delete":
-                        if (args.Length == 2)
+                        if (args.Length == 3)
                         {
                             int id = 0;
                             try
                             {
-                                id = int.Parse(args[1]);
+                                id = int.Parse(args[2]);
                             } 
                             catch (Exception ex)
                             {
