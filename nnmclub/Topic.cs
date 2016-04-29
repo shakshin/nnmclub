@@ -50,7 +50,7 @@ namespace nnmclub
                 );
                 System.Console.WriteLine("  Last downloaded: {0}", topic.LastDownloaded ?? "never");
                 System.Console.WriteLine();    
-            }
+            } 
             System.Console.WriteLine();
         }
 
