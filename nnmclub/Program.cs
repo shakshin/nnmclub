@@ -209,6 +209,9 @@ Run command:
         - search fetched RSS feed for monitored topics by ids
         - download torrrent files for matched topics
 
+    Notice: RSS feed URL generated with h-argument to show topics updated in one hour.
+            Scheduling run command once at hour is recomended.
+
 ");
         }
     }

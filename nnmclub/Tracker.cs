@@ -38,7 +38,7 @@ namespace nnmclub
             String response = String.Empty; ;
             try
             {
-                String url = String.Format("{0}forum/rss2.php?uk={1}", BaseURL, config.Passkey);
+                String url = String.Format("{0}forum/rss2.php?h=1&uk={1}", BaseURL, config.Passkey);
                 response = HttpGet(url);
             }
             catch (Exception ex)
