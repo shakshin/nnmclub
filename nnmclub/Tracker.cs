@@ -12,7 +12,7 @@ namespace nnmclub
 {
     public class Tracker
     {
-        private static String BaseURL = "http://nnmclub.to/";
+        private static String BaseURL = "https://nnmclub.to/";
 
         public static String ResolveTopicTitle(int id)
         {
@@ -108,6 +108,7 @@ namespace nnmclub
 
         private static String HttpGet(String url)
         {
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
             WebRequest req = WebRequest.Create(url);
             return new StreamReader(req.GetResponse().GetResponseStream(), System.Text.Encoding.GetEncoding("Windows-1251")).ReadToEnd();
         }
