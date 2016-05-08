@@ -11,6 +11,12 @@ namespace nnmclub
         static Config config;
         static void Main(string[] args)
         {
+            Parse(args);
+            DebugLog.Close();
+        }
+
+        static void Parse(string[] args)
+        {
             config = Config.Get();
             config.Save();
 
@@ -27,6 +33,9 @@ namespace nnmclub
                 case "topic":
                     Topics(args);
                     break;
+                case "loglevel":
+                    LogLevel(args);
+                    break;
                 case "folder":
                     Folder(args);
                     break;
@@ -34,18 +43,22 @@ namespace nnmclub
                     Passkey(args);
                     break;
                 case "run":
+                    DebugLog.WriteLine(String.Format("Processing Run command"), DebugLog.Level.Verbose);
                     if (args.Length != 1)
                     {
-                        System.Console.WriteLine("");
+                        DebugLog.WriteLine(String.Format("Wrong number of arguments"), DebugLog.Level.Verbose);
+                        System.Console.WriteLine("Wrong number of argumentts");
                     }
                     if (config.Passkey == String.Empty)
                     {
                         System.Console.WriteLine("Passkey is not configured");
+                        DebugLog.WriteLine(String.Format("Passkey is not configured"), DebugLog.Level.Verbose);
                         return;
                     }
                     if (config.Folder == String.Empty)
                     {
                         System.Console.WriteLine("Download folder is not configured");
+                        DebugLog.WriteLine(String.Format("Download folder is not configured"), DebugLog.Level.Verbose);
                         return;
                     }
                     Tracker.Poll();
@@ -53,6 +66,41 @@ namespace nnmclub
                 default:
                     System.Console.WriteLine("Wrong command: {0}", args[0]);
                     break;
+            }
+        }
+
+        static void LogLevel(string[] args)
+        {
+            if (args.Length == 1)
+            {
+                System.Console.WriteLine("Log level: {0}", config.LogLevel);
+            }
+            else if (args.Length == 2)
+            {
+                switch (args[1].ToLower())
+                {
+                    case "normal":
+                        config.LogLevel = DebugLog.Level.Normal;
+                        break;
+                    case "verbose":
+                        config.LogLevel = DebugLog.Level.Verbose;
+                        break;
+                    case "debug":
+                        config.LogLevel = DebugLog.Level.Debug;
+                        break;
+                    default:
+                        System.Console.WriteLine("Log level not recognized. Normal level set.");
+                        config.LogLevel = DebugLog.Level.Normal;
+                        break;
+                }
+                
+                config.Save();
+                System.Console.WriteLine("Log level configured");
+                DebugLog.WriteLine(String.Format("Log level set to {0}", config.LogLevel), DebugLog.Level.Normal);
+            }
+            else
+            {
+                System.Console.WriteLine("Wrong number of arguments");
             }
         }
 
@@ -135,6 +183,7 @@ namespace nnmclub
                 config.Passkey = args[1];
                 config.Save();
                 System.Console.WriteLine("Passkey configured");
+                DebugLog.WriteLine(String.Format("Passkey set to '{0}'", config.Passkey), DebugLog.Level.Normal);
             }
             else
             {
@@ -161,6 +210,7 @@ namespace nnmclub
                 config.Folder = args[1];
                 config.Save();
                 System.Console.WriteLine("Download folder configured");
+                DebugLog.WriteLine(String.Format("Download folder set to '{0}'", config.Folder), DebugLog.Level.Normal);
             }
             else
             {

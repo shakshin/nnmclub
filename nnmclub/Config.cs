@@ -28,12 +28,28 @@ namespace nnmclub
 
         public List<Topic> Topics { get; set; }
 
+        public DebugLog.Level LogLevel
+        {
+            get
+            {
+                return _LogLevel;
+            }
+
+            set
+            {
+                _LogLevel = value;
+            }
+        }
+
+        [NonSerialized]
+        private DebugLog.Level _LogLevel;
+
         [NonSerialized]
         private static Config _cfg;
 
         private static String GetPath() 
         {
-            return Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + Path.DirectorySeparatorChar + "nnmclub.xml";
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "nnmclub.xml");
         }
 
         public static Config Get()
@@ -62,18 +78,26 @@ namespace nnmclub
 
         public void Save()
         {
-            String file = GetPath();
-            XmlSerializer xml = new XmlSerializer(typeof(Config));
-            StreamWriter stream = new StreamWriter(file);
-            xml.Serialize(stream, this);
-            stream.Close();
+            DebugLog.WriteLine(String.Format("Configuration save request"), DebugLog.Level.Debug);
+            try
+            {
+                String file = GetPath();
+                XmlSerializer xml = new XmlSerializer(typeof(Config));
+                StreamWriter stream = new StreamWriter(file);
+                xml.Serialize(stream, this);
+                stream.Close();
+            } catch (Exception ex)
+            {
+                System.Console.WriteLine("WARNING: can not write configuration: {0]", ex.Message);
+                DebugLog.WriteLine(String.Format("Can not write configuration: {0}", ex.Message), DebugLog.Level.Normal);
+            }
         }
 
         public Config() {
             Passkey = String.Empty;
             Folder = String.Empty;
             Topics = new List<Topic>();
-
+            LogLevel = DebugLog.Level.Normal;
         }
     }
 }
