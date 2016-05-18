@@ -85,8 +85,12 @@ namespace nnmclub
                             DebugLog.WriteLine(String.Format("Item ID matched"), DebugLog.Level.Verbose);
                             DebugLog.WriteLine(String.Format("Matched item GUID: {0}", guid), DebugLog.Level.Debug);
                             String dlLink = item.SelectSingleNode("link").InnerText;
+
+                            // workaround to make it work while some url issues on tracker. hosts record required for nnm-club.ws
                             Regex r2 = new Regex(@"https://nnm-club\.ws");
                             dlLink = r2.Replace(dlLink, "http://nnm-club.ws");
+
+
                             DebugLog.WriteLine(String.Format("Download URL: {0}", dlLink), DebugLog.Level.Debug);
                             DebugLog.WriteLine(String.Format("Fetching topic id {0}, {1}", id, item.SelectSingleNode("title").InnerText), DebugLog.Level.Normal);
                             System.Console.WriteLine("Downloading torrent: {0}", item.SelectSingleNode("title").InnerText);
