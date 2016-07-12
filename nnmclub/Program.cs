@@ -125,7 +125,7 @@ namespace nnmclub
                             {
                                 id = int.Parse(args[2]);
                             } 
-                            catch (Exception ex)
+                            catch (Exception)
                             {
                                 System.Console.WriteLine("Wrong topic id provided");
                                 return;
@@ -145,7 +145,7 @@ namespace nnmclub
                             {
                                 id = int.Parse(args[2]);
                             } 
-                            catch (Exception ex)
+                            catch (Exception)
                             {
                                 System.Console.WriteLine("Wrong topic id provided");
                                 return;

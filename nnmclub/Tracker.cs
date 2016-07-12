@@ -37,7 +37,7 @@ namespace nnmclub
             return title;
         }
 
-        public static void Poll() 
+        public static void Poll()
         {
             DebugLog.WriteLine(String.Format("Run command specified"), DebugLog.Level.Verbose);
             Config config = Config.Get();
@@ -65,8 +65,19 @@ namespace nnmclub
             }
 
             DebugLog.WriteLine(String.Format("Parsing RSS feed document"), DebugLog.Level.Verbose);
-            XmlDocument xml = new XmlDocument();
-            xml.LoadXml(response);
+            XmlDocument xml;
+            try
+            {
+                xml = new XmlDocument();
+                xml.LoadXml(response);
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine("FATAL: RSS parse failed: {0}", ex.Message);
+                DebugLog.WriteLine(String.Format("Fetch failed: {0}", ex.Message), DebugLog.Level.Normal);
+                DebugLog.WriteLine(String.Format("RAW XML content: {0}", response), DebugLog.Level.Debug);
+                return;
+            }
             DebugLog.WriteLine(String.Format("RSS parsed. Searching."), DebugLog.Level.Verbose);
             foreach (XmlNode item in xml.DocumentElement.FirstChild)
             {
@@ -109,7 +120,9 @@ namespace nnmclub
                             }
                         }
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) {
+                        DebugLog.WriteLine(String.Format("Warning: error when working with topic: {0}", ex.Message), DebugLog.Level.Verbose);
+                    }
                 }
             }
         } 

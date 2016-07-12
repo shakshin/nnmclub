@@ -26,7 +26,7 @@ namespace nnmclub
 
                 _file.WriteLine("{0}: {1}", DateTime.Now.ToString(new CultureInfo("ru-RU")), message);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 
             }
